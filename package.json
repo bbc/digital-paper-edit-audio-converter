@@ -1,0 +1,18 @@
+{
+  "name": "ffmpeg-to-audio-stt-specs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.0",
+    "ffmpeg-static-electron": "^2.0.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "nodemon": "^1.19.0"
+  }
+}

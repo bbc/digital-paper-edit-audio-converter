@@ -1,5 +1,5 @@
 {
-  "name": "ffmpeg-to-audio-stt-specs",
+  "name": "@bbc/digital-paper-edit-audio-converter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

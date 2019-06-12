@@ -1,6 +1,19 @@
-const app = require('./app');
-const port = process.env.PORT || 4050;
+const os = require('os');
+const cluster = require('cluster');
 
-app.listen(port, () => {
-  console.log(`listening on ${port}`);
-});
+const logger = require('./logger');
+
+const cpuCount = os.cpus().length;
+
+if (cluster.isMaster) {
+  for (let i = 0; i < cpuCount; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker) => {
+    logger.error(`Worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} else {
+  require('./app');
+}

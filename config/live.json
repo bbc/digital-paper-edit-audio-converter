@@ -1,0 +1,7 @@
+{
+  "logger": {
+    "file": "/var/log/digital-paper-edit-audio-converter/application.log",
+    "error": "/var/log/digital-paper-edit-audio-converter/error.log"
+  },
+  "host": "https://.tools.bbc.co.uk"
+}

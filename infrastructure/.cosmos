@@ -1,0 +1,44 @@
+{
+  "test": {
+    "aws_account_id": "060170161162",
+    "region": "eu-west-1",
+    "name_suffix": "infrastructure-test",
+    "parameters": {
+      "ComponentName": "digital-paper-edit-audio-converter",
+      "CoreInfrastructureStackName": "core-infrastructure",
+      "CnameEntry": "dpe-audio-converter.test",
+      "DomainNameBase": "ee74d3541ebec4a3.xhst.bbci.co.uk.",
+      "LoadBalancerName": "elb-digital-paper-edit-audio-converter-test",
+      "Environment": "test",
+      "ImageId": "ami-0d063c6b",
+      "MinSize": 1,
+      "MaxSize": 1,
+      "InstanceType": "t2.micro",
+      "KeyName": "cosmos",
+      "UpdateMaxBatchSize": 1,
+      "UpdateMinInService": 0,
+      "UpdatePauseTime": "PT0S"
+    }
+  },
+  "live": {
+    "aws_account_id": "060170161162",
+    "region": "eu-west-1",
+    "name_suffix": "infrastructure-live",
+    "parameters": {
+      "ComponentName": "digital-paper-edit-audio-converter",
+      "CoreInfrastructureStackName": "core-infrastructure",
+      "LoadBalancerName": "elb-digital-paper-edit-audio-converter-live",
+      "CnameEntry": "dpe-audio-converter",
+      "DomainNameBase": "ee74d3541ebec4a3.xhst.bbci.co.uk.",
+      "Environment": "live",
+      "ImageId": "ami-0d063c6b",
+      "MinSize": 1,
+      "MaxSize": 3,
+      "InstanceType": "t2.small",
+      "KeyName": "cosmos",
+      "UpdateMaxBatchSize": 3,
+      "UpdateMinInService": 1,
+      "UpdatePauseTime": "PT0S"
+    }
+  }
+}

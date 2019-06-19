@@ -1,0 +1,11 @@
+{
+  "host": "http://localhost:8080",
+  "logger": {
+    "level": "info",
+    "file": "application.log",
+    "error": "error.log"
+  },
+  "aws": {
+    "region": "eu-west-1"
+  }
+}

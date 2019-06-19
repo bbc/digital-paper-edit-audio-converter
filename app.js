@@ -5,20 +5,20 @@ const bodyParser = require('body-parser');
 
 const logger = require('./logger');
 
-const port = process.env.PORT || 8080;
 const app = express();
+
+const PORT = process.env.PORT || 8080;
+const ENV = process.env.PORT || 'dev';
 
 app.use(bodyParser.json());
 
-if (process.env.NODE_ENV === 'live') {
-  const staticDirectory = path.join(__dirname, '..', 'static');
+const staticDirectory = path.join(__dirname, '..', 'static');
 
-  app.use(express.static(staticDirectory));
+app.use(express.static(staticDirectory));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(staticDirectory, 'index.html'));
-  });
-}
+app.get('*', (req, res) => {
+  res.sendFile(path.join(staticDirectory, 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -29,9 +29,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-const server = app.listen(port, () => {
-  logger.info(`listening on ${config.get('host')}:${port}`);
-  logger.info(`Current NODE_ENV setting: ${process.env.NODE_ENV}`);
+const server = app.listen(PORT, () => {
+  logger.info(`listening on ${config.get('host')} | Port ${PORT}`);
+  logger.info(`Current NODE_ENV setting: ${ENV}`);
 });
 
 server.on('error', (err) => {

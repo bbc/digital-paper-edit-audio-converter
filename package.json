@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/https://github.com/bbc/digital-paper-edit-audio-converter.git"
+    "url": "https://github.com/bbc/digital-paper-edit-audio-converter.git"
   },
   "author": "",
   "license": "ISC",
@@ -44,8 +44,8 @@
       "./bake-scripts/*"
     ],
     "post": [
-      "mkdir -p /etc/bake-scripts/https://github.com/bbc/digital-paper-edit-audio-converter",
-      "cp -rf /usr/lib/https://github.com/bbc/digital-paper-edit-audio-converter/bake-scripts/* /etc/bake-scripts/https://github.com/bbc/digital-paper-edit-audio-converter/",
+      "mkdir -p /etc/bake-scripts/digital-paper-edit-audio-converter",
+      "cp -rf /usr/lib/digital-paper-edit-audio-converter/bake-scripts/* /etc/bake-scripts/digital-paper-edit-audio-converter/",
       "./scripts/create-service-config.sh"
     ]
   },

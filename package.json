@@ -24,7 +24,7 @@
     "express": "^4.16.4",
     "ffmpeg-static-electron": "^2.0.1",
     "fluent-ffmpeg": "^2.1.2",
-    "speculate": "^1.7.4",
+    "speculate": "^2.0.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -45,8 +45,7 @@
     ],
     "post": [
       "mkdir -p /etc/bake-scripts/digital-paper-edit-audio-converter",
-      "cp -rf /usr/lib/digital-paper-edit-audio-converter/bake-scripts/* /etc/bake-scripts/digital-paper-edit-audio-converter/",
-      "./scripts/create-service-config.sh"
+      "cp -rf /usr/lib/digital-paper-edit-audio-converter/bake-scripts/* /etc/bake-scripts/digital-paper-edit-audio-converter/"
     ]
   },
   "private": true

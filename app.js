@@ -1,44 +1,28 @@
-const path = require('path');
 const config = require('config');
-const express = require('express');
-const bodyParser = require('body-parser');
+const Consumer = require('sqs-consumer');
 
 const logger = require('./logger');
+const handler = require('./lib/messageHandler');
 
-const app = express();
-
-const PORT = process.env.PORT || 8080;
-const ENV = process.env.PORT || 'dev';
-
-app.use(bodyParser.json());
-
-const staticDirectory = path.join(__dirname, '..', 'static');
-
-app.use(express.static(staticDirectory));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(staticDirectory, 'index.html'));
+const queue = Consumer.create({
+  queueUrl: config.get('queue.url'),
+  handleMessage: handler.handle,
 });
 
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-
-  res.status(statusCode).json({
-    status: statusCode,
-    message: err.message,
-  });
+queue.on('processing_error', (err) => {
+  logger.error(err.message);
 });
 
-const server = app.listen(PORT, () => {
-  logger.info(`listening on ${config.get('host')} | Port ${PORT}`);
-  logger.info(`Current NODE_ENV setting: ${ENV}`);
+queue.on('error', (err) => {
+  logger.error(err.message);
 });
 
-server.on('error', (err) => {
-  logger.error(err);
+queue.on('message_received', (message) => {
+  logger.info('Received message', message.MessageId);
 });
 
-require('./routes/index')(app);
-require('./routes/status')(app);
+queue.on('message_processed', (message) => {
+  logger.info('Processed message', message.MessageId);
+});
 
-module.exports = app;
+queue.start();

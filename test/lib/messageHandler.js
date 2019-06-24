@@ -32,4 +32,17 @@ describe('messageHandler', () => {
     await messageHandler.handle(testMessage);
     sinon.assert.calledWith(converter.convertToWav, messageBody);
   });
+
+  it('does not invoke a converter when job message is not correct', async () => {
+    const testMessage = _.cloneDeep(sqsMessage);
+
+    const messageBody = {
+      job_type: 'not_an_audio_conversion_job',
+    };
+
+    testMessage.Body = JSON.stringify(messageBody);
+
+    await messageHandler.handle(testMessage);
+    sinon.assert.notCalled(converter.convertToWav);
+  });
 });

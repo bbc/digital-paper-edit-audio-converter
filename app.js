@@ -1,8 +1,12 @@
 const config = require('config');
-const Consumer = require('sqs-consumer');
+const express = require('express');
+const { Consumer } = require('sqs-consumer');
 
 const logger = require('./logger');
 const handler = require('./lib/messageHandler');
+
+const ENV = process.env.ENV || 'dev';
+const PORT = process.env.PORT || 8080;
 
 const queue = Consumer.create({
   queueUrl: config.get('queue.url'),
@@ -26,3 +30,18 @@ queue.on('message_processed', (message) => {
 });
 
 queue.start();
+
+// simple server for ELB health-check
+const app = express();
+
+const server = app.listen(PORT, () => {
+  console.log(`ENV: ${ENV} | listening on port ${PORT}`);
+});
+
+server.on('error', (err) => {
+  logger.error(err);
+});
+
+app.get('/status', (req, res) => {
+  res.sendStatus(200);
+});

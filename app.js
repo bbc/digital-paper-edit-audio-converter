@@ -1,44 +1,47 @@
-const path = require('path');
 const config = require('config');
 const express = require('express');
-const bodyParser = require('body-parser');
+const { Consumer } = require('sqs-consumer');
 
 const logger = require('./logger');
+const handler = require('./lib/messageHandler');
 
+const ENV = process.env.ENV || 'dev';
+const PORT = process.env.PORT || 8080;
+
+const queue = Consumer.create({
+  queueUrl: config.get('queue.url'),
+  handleMessage: handler.handle,
+});
+
+queue.on('processing_error', (err) => {
+  logger.error(err.message);
+});
+
+queue.on('error', (err) => {
+  logger.error(err.message);
+});
+
+queue.on('message_received', (message) => {
+  logger.info('Received message', message.MessageId);
+});
+
+queue.on('message_processed', (message) => {
+  logger.info('Processed message', message.MessageId);
+});
+
+queue.start();
+
+// simple server for ELB health-check
 const app = express();
 
-const PORT = process.env.PORT || 8080;
-const ENV = process.env.PORT || 'dev';
-
-app.use(bodyParser.json());
-
-const staticDirectory = path.join(__dirname, '..', 'static');
-
-app.use(express.static(staticDirectory));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(staticDirectory, 'index.html'));
-});
-
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-
-  res.status(statusCode).json({
-    status: statusCode,
-    message: err.message,
-  });
-});
-
 const server = app.listen(PORT, () => {
-  logger.info(`listening on ${config.get('host')} | Port ${PORT}`);
-  logger.info(`Current NODE_ENV setting: ${ENV}`);
+  console.log(`ENV: ${ENV} | listening on port ${PORT}`);
 });
 
 server.on('error', (err) => {
   logger.error(err);
 });
 
-require('./routes/index')(app);
-require('./routes/status')(app);
-
-module.exports = app;
+app.get('/status', (req, res) => {
+  res.sendStatus(200);
+});

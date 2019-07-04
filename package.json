@@ -40,8 +40,7 @@
   },
   "spec": {
     "requires": [
-      "cloud-httpd24-ssl-no-certs",
-      "api-management"
+      "cloud-httpd24-ssl-no-certs"
     ],
     "executable": [
       "./bake-scripts/*"

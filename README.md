@@ -1,6 +1,7 @@
 # digital-paper-edit-audio-converter
 
 Service to standardise audio input for DPE Speech-To-Text transcription
+Uses https://github.com/bbc/convert-to-audio
 
 ---> _Work in progress_ <--
 

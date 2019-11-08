@@ -16,30 +16,35 @@ _Screenshot of UI - optional_ -->
 ![](<Screenshot of UI>)
 
 ## System Architecture
+
 ![](<Overview of system architecture>)
 <High level overview of system architecture>
 
 ## Usage
+
 <Write examples expected inputs, outputs, API calls, protocols>
 |Field|Required|Default|Description|
 |---|---|---|---|
-|   |   |   |   |
+| | | | |
 
 ## Development
 
 ## Setup
+
 ```
 npm install
 ```
 
 ### Dependencies
-* <react>
+
+- <react>
 
 <Describe your stack>
 
 ### Running
 
 #### Locally
+
 ```
 npm start
 ```
@@ -47,26 +52,48 @@ npm start
 This will start a server running at [http://localhost:8080](http://localhost:8080).
 
 #### Remotely
+
 <Steps to run remotely>
 
 ### Build
+
 run `<command>`
 [Jenkins job]()
 
 ### Tests
+
 ```
 npm test
 ```
 
 ### Style guide
+
 <airbnb style, Typescript>
 
 ### Deployment
+
+#### AWS
+
 [Jenkins job]()
 
 [Cosmos project job]()
 
+#### Firebase
+
+**Usage**
+Send data:
+
+```json
+{
+  "input": "https://download.ted.com/talks/KateDarling_2018S-950k.mp4",
+  "output": "ted-talk.wav"
+}
+```
+
+This will return the url endpoint of uploaded file.
+
 1. <Steps to deployment>
 
 ## Contact
+
 Please contact [BBC News Labs Team](BBCNewsLabsTeam@bbc.co.uk) if you want to get in touch.
